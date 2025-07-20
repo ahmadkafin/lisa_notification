@@ -92,16 +92,39 @@ exports.create = async (req, res) => {
  * @param {*} res 
  */
 exports.update = async (req, res) => {
-    const { uuid } = req.body
-    let clause = {
-        where: {
-            uuid: {
-                [Op.eq]: uuid,
-            }
+    const { uuid } = req.body;
+    const newUuid = uuidv4();
+    try {
+        const licenseWhere = { where: { uuid: { [Op.eq]: uuid } } };
+
+        const existingLicense = await Licenses.findOne(licenseWhere);
+
+        if (!existingLicense) {
+            return res.status(404).json(comRes.NOT_FOUND("Data Not Found"));
         }
+        const licenseUpdateData = payload.licenses(req, uuid);
+
+        await Licenses.update(licenseUpdateData, licenseWhere);
+
+        const existingHistory = await HistoryLicenses.findOne({
+            where: {
+                licenses_uuid: { [Op.eq]: uuid },
+                harga_satuan: { [Op.eq]: licenseUpdateData.harga_satuan },
+            },
+        });
+
+        if (!existingHistory) {
+            const historyData = payload.historyLicenses(licenseUpdateData, newUuid);
+            await HistoryLicenses.create(historyData);
+        }
+
+        return res.status(200).json(comRes.SUCCESS("Updated"));
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json(comRes.SERVER_ERROR(err.message));
     }
-    let data = payload.licenses(req, uuid);
-    await crud.update(res, Licenses, data, clause);
+
 }
 
 /**

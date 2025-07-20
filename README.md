@@ -1,8 +1,6 @@
-# 📦 Project Name
+# 📦 Lisa Notification
 
-Deskripsi singkat tentang proyek ini, misalnya:
-
-> REST API server menggunakan Node.js + Express, dengan fitur [contoh: CRUD lisensi, reminder otomatis via cron, dsb].
+> REST API server menggunakan Node.js + Express, dengan fitur [CRUD lisensi, reminder otomatis via cron].
 
 ---
 

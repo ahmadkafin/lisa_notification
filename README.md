@@ -40,13 +40,17 @@ npm install
 
 ## 🧪 Running the app
 
-# Start development mode
+### Start development mode
 
+```bash
 npm start / nodemon server.js
+```
 
-# Start production mode
+### Start production mode
 
+```bash
 pm2 start server.js
+```
 
 ## 🛠️ Built With
 

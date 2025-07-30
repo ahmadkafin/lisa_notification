@@ -1,3 +1,4 @@
+const sequelizePaginate = require('sequelize-paginate');
 module.exports = (sequelize, Sequelize) => {
     const Licenses = sequelize.define('licences', {
         id: {
@@ -74,5 +75,6 @@ module.exports = (sequelize, Sequelize) => {
         ]
     });
     Licenses.schema('pgn');
+    sequelizePaginate.paginate(Licenses);
     return Licenses;
 }

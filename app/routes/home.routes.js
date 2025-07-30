@@ -1,5 +1,6 @@
 const controller = require('../controllers');
-const Cron = controller.Cron;
+const Home = controller.Home;
+
 
 const middleware = require('../middlewares');
 const verifyToken = middleware.eitherToken;
@@ -11,7 +12,5 @@ module.exports = (app) => {
         next();
     });
 
-    app.post('/cron/:name/start', [verifyToken], Cron.cronStart);
-    app.post('/cron/:name/stop', [verifyToken], Cron.cronStop);
-    app.get('/cron/running', [verifyToken], Cron.cronRunning);
+    app.get('/home/get', [verifyToken], Home.getStatus);
 }

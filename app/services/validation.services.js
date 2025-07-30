@@ -25,3 +25,17 @@ exports.licenses = (req) => {
     }
     return state;
 }
+
+exports.iframeClient = (req) => {
+    const { site_name, is_revoked } = req.body;
+    let state = false;
+    switch (true) {
+        case site_name === null:
+        case is_revoked === null:
+        case site_name === "":
+        case is_revoked === "":
+            state = false; break;
+        default: state = true; break;
+    }
+    return state;
+}

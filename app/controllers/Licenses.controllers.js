@@ -13,13 +13,19 @@ const Licenses = models.Licenses;
 const HistoryLicenses = models.HistoryLicenses;
 const Op = models.Sequelize.Op;
 
-/**
+/** 
  * 
  * @param {*} req 
  * @param {*} res 
  */
 exports.get = async (req, res) => {
+    let page = parseInt(req.query.page, 10) || 1;
+    let paginate = parseInt(req.query.paginate, 10) || 10;
     let clause = {
+        page,
+        paginate,
+        required: true,
+        duplicating: false,
         order: [['end_date', 'DESC']],
         include: [
             {
@@ -28,7 +34,15 @@ exports.get = async (req, res) => {
             }
         ]
     }
-    await crud.read(res, Licenses, clause);
+    try {
+        // await crud.read(res, Licenses, clause);
+        await Licenses.paginate(clause).then((resp) => {
+            return res.status(200).json(comRes.SUCCESS(resp));
+        })
+    } catch (e) {
+        res.status(500)
+            .json(comRes.SERVER_ERROR(e.message));
+    }
 }
 
 /**

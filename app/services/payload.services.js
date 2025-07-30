@@ -37,3 +37,12 @@ exports.historyLicenses = (data, uuid) => {
         last_user_input: data.last_user_input,
     }
 }
+
+exports.iframeClient = (data, uuid) => {
+    return {
+        uuid: uuid,
+        site_name: data.site_name,
+        redirect: data.redirect,
+        is_revoked: data.is_revoked,
+    }
+}

@@ -98,6 +98,33 @@ exports.cronStop = async (req, res) => {
     res.json({ message: `Task '${name}' berhasil dihentikan` });
 };
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
+exports.cronRunning = async (req, res) => {
+    try {
+        const taskMap = await readFileCron();
+
+        const runningTasks = Object.keys(taskLiveMap).map(name => ({
+            name,
+            isRunning: true
+        }));
+
+        const runningFromJson = taskMap.filter(task => task.isRunning);
+
+        res.status(200).json({
+            running_memory: runningTasks,
+            running_persistent: runningFromJson
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Gagal membaca cron.json atau status task" });
+    }
+};
+
+
 async function sendEmail() {
     try {
         let data = await checkSoonExpire();

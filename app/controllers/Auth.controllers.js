@@ -65,20 +65,24 @@ exports.createTokenIframe = async (req, res) => {
         const token = await tokenService.signTokenIframe(clientFound);
 
         // button di email mengarah ke digio
-        if (clientFound.redirect.includes("https://digio.pgn.co.id") && clientFound.site_name.includes("https://digio.pgn.co.id")) {
-            const username = process.env.USERNAME;
-            const password = process.env.PASSWORD;
-            const directory = process.env.DIRECTORY;
-            const dRes = await digioService.digioLogin(username, password, directory);
-            const cookieData = await getCookieData(dRes.data.AccessToken);
+        if (clientFound.redirect != null) {
+            if (clientFound.redirect.includes("https://digio.pgn.co.id") && clientFound.site_name.includes("https://digio.pgn.co.id")) {
+                const username = process.env.USERNAME;
+                const password = process.env.PASSWORD;
+                const directory = process.env.DIRECTORY;
 
-            return res.status(200).json({
-                status: 200,
-                token: token,
-                redirect: clientFound.redirect,
-                cookie_session: cookieData,
-            });
+                const dRes = await digioService.digioLogin(username, password, directory);
+                const cookieData = await getCookieData(dRes.data.AccessToken);
+
+                return res.status(200).json({
+                    status: 200,
+                    token: token,
+                    redirect: clientFound.redirect,
+                    cookie_session: cookieData,
+                });
+            }
         }
+
         return res.status(200).json(resCom.SUCCESS(token));
     } catch (e) {
         return res.status(500).json(resCom.SERVER_ERROR(e.message));

@@ -14,6 +14,10 @@ const payload = services.payload;
 const IframeClient = models.IframeClient;
 const Op = models.Sequelize.Op;
 
+// <iframe src="lisa.com?uuid=something-uuid-for-client">
+//     axios.post("localhost:8080/auth/iframeLogin?${req.}")
+// </iframe>
+
 /**
  * 
  * @param {*} req 
@@ -21,7 +25,7 @@ const Op = models.Sequelize.Op;
  */
 exports.get = async (req, res) => {
     let clause = {
-        order: [['created_at', 'DESC']],
+        order: [['createdAt', 'DESC']],
     }
     await crud.read(res, IframeClient, clause);
 }
@@ -34,7 +38,7 @@ exports.get = async (req, res) => {
  */
 exports.find = async (req, res) => {
     const { uuid } = req.body;
-    if (!body) {
+    if (!uuid) {
         return res.status(400).json(comRes.BAD_REQUEST("req body must be present"));
     }
 

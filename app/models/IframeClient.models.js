@@ -16,7 +16,7 @@ module.exports = (sequelize, Sequelize) => {
         redirect: {
             type: Sequelize.STRING,
             allowNull: true
-        }
+        },
     }, {
         tableName: "iframe_client",
         timestamps: true,

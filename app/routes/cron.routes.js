@@ -15,3 +15,6 @@ module.exports = (app) => {
     app.post('/cron/:name/stop', [verifyToken], Cron.cronStop);
     app.get('/cron/running', [verifyToken], Cron.cronRunning);
 }
+
+
+// pm2 start SERVER_ERROR.js--name lisa_backend

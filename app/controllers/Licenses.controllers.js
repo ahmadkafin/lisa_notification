@@ -1,4 +1,8 @@
 const { v4: uuidv4 } = require('uuid');
+const xlsx = require('xlsx');
+const path = require('path');
+const fs = require('fs');
+
 
 const models = require('../models')
 const service = require('../services')
@@ -166,4 +170,70 @@ exports.delete = async (req, res) => {
         }
     }
     await crud.remove(res, Licenses, clause);
+}
+
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
+exports.uploadData = async (req, res) => {
+    try {
+        const filePath = req.file.path;
+        const workbook = xlsx.readFile(filePath);
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+
+        const data = xlsx.utils.sheet_to_json(sheet);
+
+        const mappedData = data.map(row => ({
+            uuid: uuidv4(),
+            name: row.name,
+            start_date: typeof row.start_date === 'number'
+                ? excelDateToJSDate(row.start_date)
+                : dmyToIso(row.start_date),
+            end_date: typeof row.end_date === 'number'
+                ? excelDateToJSDate(row.end_date)
+                : dmyToIso(row.end_date),
+            volume: row.volume,
+            satuan: row.satuan,
+            harga_satuan: row.harga_satuan,
+            jumlah: row.jumlah,
+            username: row.username,
+            password: row.password,
+            lokasi_lisensi: row.lokasi_lisensi,
+            description: row.description,
+            last_user_input: req.body.last_user_input,
+            createdAt: new Date(),
+            updatedAd: new Date(),
+        }));
+
+        console.log('Mapped data : ', mappedData);
+        await Licenses.bulkCreate(mappedData);
+        fs.unlinkSync(filePath);
+        return res.status(201).json(comRes.CREATED({
+            message: "Data berhasil import",
+            total: mappedData.length,
+        }));
+    } catch (e) {
+        const filePath = req.file.path;
+        fs.unlinkSync(filePath);
+        return res.status(500).json(comRes.SERVER_ERROR(e.message));
+    }
+}
+
+function excelDateToJSDate(serial) {
+    const utc_days = Math.floor(serial - 25569);
+    const utc_value = utc_days * 86400; // seconds
+    const date_info = new Date(utc_value * 1000);
+    return date_info.toISOString().split('T')[0]; // YYYY-MM-DD
+}
+
+function dmyToIso(dmy) {
+    if (!dmy || typeof dmy !== "string") return dmy;
+    const [d, m, y] = dmy.split('/');
+    if (!d || !m || !y) return dmy; // return as is kalau tidak valid
+    return `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
 }

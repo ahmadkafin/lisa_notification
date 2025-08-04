@@ -1,5 +1,8 @@
 const controller = require('../controllers');
 const Licenses = controller.Licenses;
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+
 
 
 const middleware = require('../middlewares');
@@ -15,6 +18,7 @@ module.exports = (app) => {
     app.get('/licenses/get', [verifyToken], Licenses.get);
     app.get('/licenses/find', [verifyToken], Licenses.find);
     app.post('/licenses/create', [verifyToken], Licenses.create);
+    app.post('/licenses/upload', [verifyToken, upload.single('file')], Licenses.uploadData);
     app.put('/licenses/update', [verifyToken], Licenses.update);
     app.delete('/licenses/delete', [verifyToken], Licenses.delete)
 }

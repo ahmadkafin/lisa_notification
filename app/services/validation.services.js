@@ -39,3 +39,22 @@ exports.iframeClient = (req) => {
     }
     return state;
 }
+
+exports.emailRecepient = (req) => {
+    const { name, email, email_type } = req.body;
+    let state = false;
+    console.log(email.email);
+    switch (true) {
+        case name === null:
+        case email === null:
+        case email_type === null:
+        case name === "":
+        case email === "":
+        case email_type === "":
+            state = false; break;
+        case email.includes(" "):
+            state = false; break;
+        default: state = true; break;
+    }
+    return state;
+}

@@ -26,7 +26,8 @@ db.sequelize = sequelize;
 db.Licenses = require('./Licenses.models')(sequelize, Sequelize);
 db.HistoryLicenses = require('./HistoryLicenses.models')(sequelize, Sequelize, db.Licenses);
 db.IframeClient = require('./IframeClient.models')(sequelize, Sequelize);
-
+db.Email = require('./Email.models')(sequelize, Sequelize);
+db.Cron = require('./Cron.models')(sequelize, Sequelize);
 
 db.Licenses.hasMany(db.HistoryLicenses, {
     foreignKey: 'licenses_uuid',

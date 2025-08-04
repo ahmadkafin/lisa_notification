@@ -22,15 +22,25 @@ exports.get = async (req, res) => {
     let page = parseInt(req.query.page, 10) || 1;
     let paginate = parseInt(req.query.paginate, 10) || 10;
     let clause = {
-        page,
-        paginate,
+        page: page,
+        paginate: paginate,
         required: true,
         duplicating: false,
         order: [['end_date', 'DESC']],
+        where: {
+            [Op.or]: [
+                {
+                    name: {
+                        [Op.like]: `%${req.query.name}%`,
+                    }
+                }
+            ]
+        },
         include: [
             {
                 model: HistoryLicenses,
                 required: true,
+                duplicating: false,
             }
         ]
     }
@@ -78,7 +88,7 @@ exports.find = async (req, res) => {
 exports.create = async (req, res) => {
     const uuid = uuidv4();
     if (!validation.licenses(req)) {
-        res.status(400)
+        return res.status(400)
             .json(comRes.BAD_REQUEST("payload is not fullfilled!"));
     }
     let licensesData = payload.licenses(req, uuid);
@@ -156,4 +166,11 @@ exports.delete = async (req, res) => {
         }
     }
     await crud.remove(res, Licenses, clause);
+}
+
+function toTitleCase(str) {
+    return str.replace(
+        /\w\S*/g,
+        (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+    );
 }

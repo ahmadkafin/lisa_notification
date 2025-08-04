@@ -1,5 +1,5 @@
 const controller = require('../controllers');
-const Cron = controller.Cron;
+const Email = controller.Email;
 
 const middleware = require('../middlewares');
 const verifyToken = middleware.eitherToken;
@@ -10,7 +10,9 @@ module.exports = (app) => {
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
         next();
     });
-    app.get('/cron/running', [verifyToken], Cron.get);
-    app.post('/cron/create', [verifyToken], Cron.create);
-    app.post('/cron/switch', [verifyToken], Cron.cronSwitch);
+    app.get('/email/get', [verifyToken], Email.get);
+    app.get('/email/get/type', [verifyToken], Email.getByType);
+    app.post('/email/create', [verifyToken], Email.create);
+    app.put('/email/update', [verifyToken], Email.update);
+    app.delete('/email/delete', [verifyToken], Email.remove);
 }

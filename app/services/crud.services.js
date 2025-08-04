@@ -93,7 +93,6 @@ exports.update = async (res, Model, payload, clause) => {
                     .json(comRes.SERVER_ERROR(err.message));
             });
     }
-
 }
 
 

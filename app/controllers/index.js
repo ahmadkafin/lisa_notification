@@ -5,4 +5,5 @@ module.exports = {
     Auth: require('./Auth.controllers'),
     IframeClient: require('./PageAccess.controllers'),
     Home: require('./Home.controllers'),
+    Email: require('./Email.controllers'),
 }

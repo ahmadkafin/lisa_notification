@@ -46,3 +46,12 @@ exports.iframeClient = (data, uuid) => {
         is_revoked: data.is_revoked,
     }
 }
+
+exports.emailRecepient = (data, uuid) => {
+    return {
+        uuid: uuid,
+        name: data.name,
+        email: data.email,
+        email_type: data.email_type,
+    };
+}

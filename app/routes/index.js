@@ -5,4 +5,5 @@ module.exports = (app) => {
     require('./auth.routes')(app);
     require('./iframeclient.routes')(app);
     require('./home.routes')(app);
+    require('./email.routes')(app);
 }

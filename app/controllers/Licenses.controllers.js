@@ -167,10 +167,3 @@ exports.delete = async (req, res) => {
     }
     await crud.remove(res, Licenses, clause);
 }
-
-function toTitleCase(str) {
-    return str.replace(
-        /\w\S*/g,
-        (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-    );
-}

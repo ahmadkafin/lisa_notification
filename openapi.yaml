@@ -1,0 +1,809 @@
+openapi: 3.0.0
+info:
+  title: My API
+  version: 1.0.0
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      description: 
+      operationId: post8080authlogin
+      parameters: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  name: String 
+                  group: String
+                  token: String
+                  expires: int
+        400:
+          description: Bad Request
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 400
+                  response: String
+                  data: String
+        500:
+          description: Failed
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 500
+                  response: String
+                  data: String
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                username: String
+                password: String
+                directory: String
+  /auth/iframeLogin:
+    post:
+      summary: Login via Iframe
+      tags:
+        - Auth
+      description: 
+      operationId: post8080authiframeLogin
+      parameters:
+        - name: uuid
+          in: query
+          schema:
+            type: string
+          example: 678aa5c8-bd84-43a2-bd3c-2a52f170adb0
+      responses:
+        200:
+          description: Success
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 200
+                  response: OK
+                  data: token-string
+        400:
+          description: Bad Request
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 400
+                  response: BAD REQUEST
+                  data: Payload is not complete
+        401:
+          description: Unauthorized
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 401
+                  response: UNAUTHORIZED
+  /licenses/get:
+    get:
+      summary: Get
+      security:
+        - bearerAuth: []
+      tags:
+        - Licenses
+      description: 
+      operationId: getlicensesget
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: string
+          example: 1
+        - name: paginate
+          in: query
+          schema:
+            type: string
+          example: 5
+        - name: name
+          in: query
+          schema:
+            type: string
+          example: chi
+      responses:
+        200:
+          description: Get
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 200
+                  response: OK
+                  data:
+                    - id: 17
+                      uuid: 0664faa8-9172-441b-9199-35d10e8e6a2a
+                      name: Towels
+                      start_date: 2025-07-20
+                      end_date: 2026-07-20
+                      volume: 2
+                      satuan: unit
+                      harga_satuan: 56533
+                      jumlah: 113066
+                      username: Marlon.Lebsack50
+                      password: JOG8xvVT_ECfQRu
+                      lokasi_lisensi: East Jodie
+                      description: Hic ducimus vestigium adhaero verus. Cultellus a torqueo eaque vulgivagus debeo conspergo casus voluptatum. Cauda deprecator attero decipio vulgivagus animadverto asporto tremo amaritudo.
+                      last_user_input: ahmad.kafin
+                      createdAt: "2025-07-20T05:13:09.389Z"
+                      updatedAt: "2025-07-20T05:13:09.389Z"
+                      history_licenses:
+                        - id: 11
+                          uuid: 379cccdf-b8ed-40f3-83ff-9132be962707
+                          licenses_uuid: 0664faa8-9172-441b-9199-35d10e8e6a2a
+                          harga_satuan: 56533
+                          tanggal: 2025-07-20
+                          description: Hic ducimus vestigium adhaero verus. Cultellus a torqueo eaque vulgivagus debeo conspergo casus voluptatum. Cauda deprecator attero decipio vulgivagus animadverto asporto tremo amaritudo.
+                          last_user_input: ahmad.kafin
+                          createdAt: "2025-07-20T05:13:09.395Z"
+                          updatedAt: "2025-07-20T05:13:09.395Z"
+  /licenses/find:
+    get:
+      summary: Find
+      security:
+        - bearerAuth: []
+      tags:
+        - Licenses      
+      description: 
+      operationId: getlicensesfind
+      parameters: []
+      responses:
+        200:
+          description: Find
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 200
+                  response: OK
+                  data:
+                    - id: 17
+                      uuid: 0664faa8-9172-441b-9199-35d10e8e6a2a
+                      name: Towels
+                      start_date: 2025-07-20
+                      end_date: 2026-07-20
+                      volume: 2
+                      satuan: unit
+                      harga_satuan: 56533
+                      jumlah: 113066
+                      username: Marlon.Lebsack50
+                      password: JOG8xvVT_ECfQRu
+                      lokasi_lisensi: East Jodie
+                      description: Hic ducimus vestigium adhaero verus. Cultellus a torqueo eaque vulgivagus debeo conspergo casus voluptatum. Cauda deprecator attero decipio vulgivagus animadverto asporto tremo amaritudo.
+                      last_user_input: ahmad.kafin
+                      createdAt: "2025-07-20T05:13:09.389Z"
+                      updatedAt: "2025-07-20T05:13:09.389Z"
+                      history_licenses:
+                        - id: 11
+                          uuid: 379cccdf-b8ed-40f3-83ff-9132be962707
+                          licenses_uuid: 0664faa8-9172-441b-9199-35d10e8e6a2a
+                          harga_satuan: 56533
+                          tanggal: 2025-07-20
+                          description: Hic ducimus vestigium adhaero verus. Cultellus a torqueo eaque vulgivagus debeo conspergo casus voluptatum. Cauda deprecator attero decipio vulgivagus animadverto asporto tremo amaritudo.
+                          last_user_input: ahmad.kafin
+                          createdAt: "2025-07-20T05:13:09.395Z"
+                          updatedAt: "2025-07-20T05:13:09.395Z"
+  /licenses/create:
+    post:
+      summary: Create
+      security:
+        - bearerAuth: []
+      tags:
+        - Licenses      
+      description: 
+      operationId: postlicensescreate
+      parameters: []
+      responses:
+        201:
+          description: Create
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 201
+                  response: CREATED
+                  data:
+                    licensesData:
+                      id: 122
+                      uuid: 194292ea-481c-4ac6-b5db-18b5c7ffc7e2
+                      name: Amazon Web Service
+                      start_date: 2025-07-25
+                      end_date: 2026-07-10
+                      volume: 5
+                      satuan: unit
+                      harga_satuan: 125000
+                      jumlah: 625000
+                      username: Marlon.Lebsack45
+                      password: JOG8xvVT_ECfQRu
+                      lokasi_lisensi: California
+                      description: Hic ducimus vestigium adhaero verus. Cultellus a torqueo eaque vulgivagus debeo conspergo casus voluptatum. Cauda deprecator attero decipio vulgivagus animadverto asporto tremo amaritudo.
+                      last_user_input: ahmad.kafin
+                      updatedAt: "2025-07-20T06:50:30.710Z"
+                      createdAt: "2025-07-20T06:50:30.710Z"
+                    historyData:
+                      id: 116
+                      uuid: 4ab84121-855c-4be7-82ec-62da8025d127
+                      licenses_uuid: 194292ea-481c-4ac6-b5db-18b5c7ffc7e2
+                      harga_satuan: 125000
+                      tanggal: 2025-07-25
+                      description: Hic ducimus vestigium adhaero verus. Cultellus a torqueo eaque vulgivagus debeo conspergo casus voluptatum. Cauda deprecator attero decipio vulgivagus animadverto asporto tremo amaritudo.
+                      last_user_input: ahmad.kafin
+                      updatedAt: "2025-07-20T06:50:30.755Z"
+                      createdAt: "2025-07-20T06:50:30.755Z"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                uuid: 0664faa8-9172-441b-9199-35d10e8e6a2f
+                name: Amazon Web Service
+                start_date: 2025-07-25
+                end_date: 2026-07-10
+                volume: 5
+                satuan: unit
+                harga_satuan: 125000
+                username: Marlon.Lebsack45
+                password: JOG8xvVT_ECfQRu
+                lokasi_lisensi: California
+                description: Hic ducimus vestigium adhaero verus. Cultellus a torqueo eaque vulgivagus debeo conspergo casus voluptatum. Cauda deprecator attero decipio vulgivagus animadverto asporto tremo amaritudo.
+                last_user_input: ahmad.kafin
+                createdAt: "2025-07-20T05:13:09.389Z"
+                updatedAt: "2025-07-20T05:13:09.389Z"
+  /licenses/update:
+    put:
+      summary: Update
+      security:
+        - bearerAuth: []
+      tags:
+        - Licenses      
+      description: 
+      operationId: putlicensesupdate
+      parameters: []
+      responses:
+        200:
+          description: Update
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 200
+                  response: OK
+                  data: updated
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                uuid: 194292ea-481c-4ac6-b5db-18b5c7ffc7e2
+                name: Firebase Console
+                start_date: 2025-07-25
+                end_date: 2026-07-10
+                volume: 10
+                satuan: unit
+                harga_satuan: 125000
+                username: Marlon.Lebsack45
+                password: JOG8xvVT_ECfQRu
+                lokasi_lisensi: California
+                description: Hic ducimus vestigium adhaero verus. Cultellus a torqueo eaque vulgivagus debeo conspergo casus voluptatum. Cauda deprecator attero decipio vulgivagus animadverto asporto tremo amaritudo.
+                last_user_input: ahmad.kafin
+                createdAt: "2025-07-20T05:13:09.389Z"
+                updatedAt: "2025-07-20T05:13:09.389Z"
+  /licenses/delete:
+    delete:
+      summary: Delete
+      security:
+        - bearerAuth: []
+      tags:
+        - Licenses      
+      description: 
+      operationId: deletelicensesdelete
+      parameters: []
+      responses:
+        204:
+          description: Delete
+  /licenses/upload:
+    post:
+      summary: Upload
+      security:
+        - bearerAuth: []
+      tags:
+        - Licenses      
+      description: 
+      operationId: postlicensesupload
+      parameters: []
+      responses:
+        201:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                example: {}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                last_user_input:
+                  type: string
+                  example: ahmad.kafin-e
+  /email/get/type:
+    get:
+      summary: Email Get by type
+      security:
+        - bearerAuth: []
+      tags:
+        - Email      
+      description: 
+      operationId: get8080emailgettype
+      parameters: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 200
+                  response: OK
+                  data:
+                    - id: 1
+                      uuid: 44d94810-db0e-49f2-a7ac-d86bfc631779
+                      name: Fake Email
+                      email: FakeEmail@gmail.com
+                      email_type: to
+                      createdAt: "2025-08-05T00:27:21.079Z"
+                      updatedAt: "2025-08-05T00:27:21.079Z"
+        404:
+          description: Not Found
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 404
+                  response: NOT FOUND
+                  data: NOT FOUND
+  /email/get:
+    get:
+      summary: Email Get
+      security:
+        - bearerAuth: []
+      tags:
+        - Email      
+      description: 
+      operationId: get8080emailget
+      parameters: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 200
+                  response: OK
+                  data:
+                    - id: 1
+                      uuid: 44d94810-db0e-49f2-a7ac-d86bfc631779
+                      name: Fake Email
+                      email: FakeEmail@gmail.com
+                      email_type: to
+                      createdAt: "2025-08-05T00:27:21.079Z"
+                      updatedAt: "2025-08-05T00:27:21.079Z"
+  /email/create:
+    post:
+      summary: Create
+      security:
+        - bearerAuth: []
+      tags:
+        - Email      
+      description: 
+      operationId: post8080emailcreate
+      parameters: []
+      responses:
+        201:
+          description: Created
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 201
+                  response: CREATED
+                  data:
+                    id: 1
+                    uuid: 44d94810-db0e-49f2-a7ac-d86bfc631779
+                    name: Fake Email
+                    email: FakeEmail@gmail.com
+                    email_type: to
+                    updatedAt: "2025-08-05T00:27:21.079Z"
+                    createdAt: "2025-08-05T00:27:21.079Z"
+        400:
+          description: Bad Request
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 400
+                  response: BAD REQUEST
+                  data: payload is not fullfilled!
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Fake Email
+                email: FakeEmail@gmail.com
+                email_type: bcc
+  /email/update:
+    put:
+      summary: Update
+      security:
+        - bearerAuth: []
+      tags:
+        - Email      
+      description: 
+      operationId: put8080emailupdate
+      parameters: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 200
+                  response: OK
+                  data: updated
+        404:
+          description: Not Found
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 404
+                  response: NOT FOUND
+                  data: NOT FOUND
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                uuid: 9b584d52-1922-45b3-b85a-cdab5ed88eff
+                name: Kafin Ahmad Updated
+                email: kafinahmad@gmail.com
+                email_type: to
+  /email/delete:
+    delete:
+      summary: Delete
+      security:
+        - bearerAuth: []
+      tags:
+        - Email
+      description: 
+      operationId: delete8080emaildelete
+      parameters: []
+      responses:
+        204:
+          description: Deleted
+        404:
+          description: Not Found
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 404
+                  response: NOT FOUND
+                  data: NOT FOUND
+  /iframe-client/get:
+    get:
+      summary: Find
+      security:
+        - bearerAuth: []
+      tags:
+        - Iframe-Client
+      description: 
+      operationId: getiframeclientget
+      parameters: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 200
+                  response: OK
+                  data:
+                    - uuid: 9c63cb1c-d81e-457f-84dd-8bde19b25c23
+                      site_name: "https://digio.pgn.co.id/"
+                      is_revoked: false
+                      redirect: "https://digio.pgn.co.id/digio"
+                      createdAt: "2025-08-05T00:42:05.208Z"
+                      updatedAt: "2025-08-05T00:44:16.759Z"
+        404:
+          description: Not Found
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 404
+                  response: NOT FOUND
+                  data: NOT FOUND
+  /iframe-client/create:
+    post:
+      summary: Created
+      security:
+        - bearerAuth: []
+      tags:
+        - Iframe-Client      
+      description: 
+      operationId: postiframeclientcreate
+      parameters: []
+      responses:
+        201:
+          description: Created
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 201
+                  response: CREATED
+                  data:
+                    uuid: 9c63cb1c-d81e-457f-84dd-8bde19b25c23
+                    site_name: "https://localhost:8080/"
+                    redirect: "https://digio.pgn.co.id/digio"
+                    is_revoked: false
+                    updatedAt: "2025-08-05T00:42:05.208Z"
+                    createdAt: "2025-08-05T00:42:05.208Z"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                site_name: "https://localhost:8080/"
+                is_revoked: false
+                redirect: "https://digio.pgn.co.id/digio"
+  /iframe-client/update:
+    put:
+      summary: Update
+      security:
+        - bearerAuth: []
+      tags:
+        - Iframe-Client      
+      description: 
+      operationId: putiframeclientupdate
+      parameters: []
+      responses:
+        200:
+          description: Updated
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 200
+                  response: OK
+                  data: updated
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                uuid: 9c63cb1c-d81e-457f-84dd-8bde19b25c23
+                site_name: "https://digio.pgn.co.id/"
+                is_revoked: false
+                redirect: "https://digio.pgn.co.id/digio"
+  /cron/running:
+    get:
+      summary: Cron Status
+      security:
+        - bearerAuth: []
+      tags:
+        - Cron      
+      description: 
+      operationId: getcronrunning
+      parameters: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 200
+                  response: OK
+                  data:
+                    - id: 1
+                      uuid: 12943867-dcd8-49e4-88fe-278160ea5991
+                      name: sendEmail
+                      time_schedule: "0 9,15 * * 1-5"
+                      is_running: true
+                      createdAt: "2025-08-05T00:21:40.021Z"
+                      updatedAt: "2025-08-05T00:21:40.021Z"
+        404:
+          description: Not Found
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 404
+                  response: NOT FOUND
+                  data: NOT FOUND
+  /cron/create:
+    post:
+      summary: Create
+      security:
+        - bearerAuth: []
+      tags:
+        - Cron      
+      description: 
+      operationId: postcroncreate
+      parameters: []
+      responses:
+        200:
+          description: Created
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 200
+                  response: OK
+                  data:
+                    cronName: sendEmail
+                    status: "✅ Running success and create cron on 0 9,15 * * 1-5"
+        400:
+          description: Bad Request
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 400
+                  response: BAD REQUEST
+                  data: Payload is not fullfiled
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: sendEmail
+                time_schedule: "0 9,15 * * 1-5"
+                is_running: true
+  /cron/switch:
+    post:
+      summary: Switch Cron
+      security:
+        - bearerAuth: []
+      tags:
+        - Cron
+      description: 
+      operationId: postcronswitch
+      parameters: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 200
+                  response: OK
+                  data:
+                    cronName: sendEmail
+                    status: ✅ Cron 'sendEmail' berhasil dijalankan ulang.
+        404:
+          description: Not Found
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 404
+                  response: NOT FOUND
+                  data: NOT FOUND
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                uuid: b58f2c1d-e4bd-4af4-acb4-b921b20e26ed
+                is_running: false
+  /home/get:
+    get:
+      summary: Home
+      security:
+        - bearerAuth: []
+      tags:
+        - Home
+      description: 
+      operationId: gethomeget
+      parameters: []
+      responses:
+        200:
+          description: Success
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: object
+                example:
+                  status: 200
+                  data:
+                    - status: expired
+                      count: 0
+                      total_data: 116
+                    - status: will_expire
+                      count: 1
+                      total_data: 116
+                    - status: secure
+                      count: 115
+                      total_data: 116
+components:
+  schemas: {}
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    digestAuth:
+      type: http
+      scheme: digest
+tags: []

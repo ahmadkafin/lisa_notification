@@ -124,7 +124,7 @@ exports.cronSwitch = async (req, res) => {
     };
     const found = await Cron.findOne(clause);
     if (!found) {
-        return res.status(404).json(comRes.NOT_FOUND("NOT FOUND"));
+        return res.status(404).json(resCom.NOT_FOUND("NOT FOUND"));
     }
     const jobFunction = functionMap[found.name];
 

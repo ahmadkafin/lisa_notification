@@ -17,7 +17,7 @@ exports.getStatus = async (req, res) => {
         COUNT(CASE WHEN end_date >= CAST(GETDATE() AS DATE)
                     AND end_date <= DATEADD(day, 120, CAST(GETDATE() AS DATE)) THEN 1 END) AS will_expire,
         COUNT(CASE WHEN end_date > DATEADD(day, 120, CAST(GETDATE() AS DATE)) THEN 1 END) AS secure
-        FROM pgn.licenses
+        FROM dbo.licenses
     `);
 
         const data = result[0];

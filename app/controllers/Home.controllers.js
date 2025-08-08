@@ -1,5 +1,7 @@
 const models = require('../models');
 const sequelize = models.sequelize;
+const response = require('../response')
+const comRes = response.response;
 
 /**
  * 

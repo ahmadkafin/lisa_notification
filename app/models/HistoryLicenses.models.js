@@ -38,6 +38,6 @@ module.exports = (sequelize, Sequelize, Licenses) => {
         tableName: "history_licenses",
         timestamps: true,
     });
-    HistoryLicenses.schema('pgn');
+    HistoryLicenses.schema('dbo');
     return HistoryLicenses;
 }

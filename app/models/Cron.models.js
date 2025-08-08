@@ -31,6 +31,6 @@ module.exports = (sequelize, Sequelize) => {
             }
         ]
     });
-    Cron.schema('pgn');
+    Cron.schema('dbo');
     return Cron;
 }

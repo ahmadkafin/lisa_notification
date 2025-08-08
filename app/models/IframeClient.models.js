@@ -21,6 +21,6 @@ module.exports = (sequelize, Sequelize) => {
         tableName: "iframe_client",
         timestamps: true,
     });
-    IframeClient.schema('pgn');
+    IframeClient.schema('dbo');
     return IframeClient;
 }

@@ -74,7 +74,7 @@ module.exports = (sequelize, Sequelize) => {
             }
         ]
     });
-    Licenses.schema('pgn');
+    Licenses.schema('dbo');
     sequelizePaginate.paginate(Licenses);
     return Licenses;
 }

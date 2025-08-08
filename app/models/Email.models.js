@@ -31,6 +31,6 @@ module.exports = (sequelize, Sequelize) => {
             },
         ],
     });
-    Email.schema('pgn');
+    Email.schema('dbo');
     return Email;
 }

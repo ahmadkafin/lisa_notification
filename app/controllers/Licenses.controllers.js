@@ -209,9 +209,21 @@ exports.uploadData = async (req, res) => {
             createdAt: new Date(),
             updatedAd: new Date(),
         }));
-
-        console.log('Mapped data : ', mappedData);
+        let licens_history_arr = [];
+        for (let i = 0; i < mappedData.length; i++) {
+            licens_history_arr.push(
+                {
+                    uuid: uuidv4(),
+                    licenses_uuid: mappedData[i].uuid,
+                    harga_satuan: mappedData[i].harga_satuan,
+                    tanggal: mappedData[i].start_date,
+                    description: mappedData[i].description,
+                    last_user_input: mappedData[i].last_user_input,
+                }
+            );
+        }
         await Licenses.bulkCreate(mappedData);
+        await HistoryLicenses.bulkCreate(licens_history_arr);
         fs.unlinkSync(filePath);
         return res.status(201).json(comRes.CREATED({
             message: "Data berhasil import",

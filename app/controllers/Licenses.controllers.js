@@ -65,13 +65,13 @@ exports.get = async (req, res) => {
  * @param {*} res 
  */
 exports.find = async (req, res) => {
-    if (!req.body || Object.keys(req.body).length === 0) {
-        return res.status(400).json(comRes.BAD_REQUEST("req body must be present"));
-    }
+    // if (!req.body || Object.keys(req.body).length === 0) {
+    //     return res.status(400).json(comRes.BAD_REQUEST("req body must be present"));
+    // }
     let clause = {
         where: {
-            uuid: {
-                [Op.eq]: req.body.uuid,
+            name: {
+                [Op.like]: `%${req.query.name}%`,
             }
         },
         include: [

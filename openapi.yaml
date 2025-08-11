@@ -8,7 +8,7 @@ paths:
       tags:
         - Auth
       summary: Login
-      description: 
+      description:
       operationId: post8080authlogin
       parameters: []
       responses:
@@ -19,7 +19,7 @@ paths:
               schema:
                 type: object
                 example:
-                  name: String 
+                  name: String
                   group: String
                   token: String
                   expires: int
@@ -58,7 +58,7 @@ paths:
       summary: Login via Iframe
       tags:
         - Auth
-      description: 
+      description:
       operationId: post8080authiframeLogin
       parameters:
         - name: uuid
@@ -103,7 +103,7 @@ paths:
         - bearerAuth: []
       tags:
         - Licenses
-      description: 
+      description:
       operationId: getlicensesget
       parameters:
         - name: page
@@ -164,10 +164,15 @@ paths:
       security:
         - bearerAuth: []
       tags:
-        - Licenses      
-      description: 
+        - Licenses
+      description:
       operationId: getlicensesfind
-      parameters: []
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+          example: chi
       responses:
         200:
           description: Find
@@ -211,8 +216,8 @@ paths:
       security:
         - bearerAuth: []
       tags:
-        - Licenses      
-      description: 
+        - Licenses
+      description:
       operationId: postlicensescreate
       parameters: []
       responses:
@@ -280,8 +285,8 @@ paths:
       security:
         - bearerAuth: []
       tags:
-        - Licenses      
-      description: 
+        - Licenses
+      description:
       operationId: putlicensesupdate
       parameters: []
       responses:
@@ -322,8 +327,8 @@ paths:
       security:
         - bearerAuth: []
       tags:
-        - Licenses      
-      description: 
+        - Licenses
+      description:
       operationId: deletelicensesdelete
       parameters: []
       responses:
@@ -335,8 +340,8 @@ paths:
       security:
         - bearerAuth: []
       tags:
-        - Licenses      
-      description: 
+        - Licenses
+      description:
       operationId: postlicensesupload
       parameters: []
       responses:
@@ -365,8 +370,8 @@ paths:
       security:
         - bearerAuth: []
       tags:
-        - Email      
-      description: 
+        - Email
+      description:
       operationId: get8080emailgettype
       parameters: []
       responses:
@@ -403,8 +408,8 @@ paths:
       security:
         - bearerAuth: []
       tags:
-        - Email      
-      description: 
+        - Email
+      description:
       operationId: get8080emailget
       parameters: []
       responses:
@@ -431,8 +436,8 @@ paths:
       security:
         - bearerAuth: []
       tags:
-        - Email      
-      description: 
+        - Email
+      description:
       operationId: post8080emailcreate
       parameters: []
       responses:
@@ -479,8 +484,8 @@ paths:
       security:
         - bearerAuth: []
       tags:
-        - Email      
-      description: 
+        - Email
+      description:
       operationId: put8080emailupdate
       parameters: []
       responses:
@@ -522,7 +527,7 @@ paths:
         - bearerAuth: []
       tags:
         - Email
-      description: 
+      description:
       operationId: delete8080emaildelete
       parameters: []
       responses:
@@ -545,7 +550,7 @@ paths:
         - bearerAuth: []
       tags:
         - Iframe-Client
-      description: 
+      description:
       operationId: getiframeclientget
       parameters: []
       responses:
@@ -581,8 +586,8 @@ paths:
       security:
         - bearerAuth: []
       tags:
-        - Iframe-Client      
-      description: 
+        - Iframe-Client
+      description:
       operationId: postiframeclientcreate
       parameters: []
       responses:
@@ -618,8 +623,8 @@ paths:
       security:
         - bearerAuth: []
       tags:
-        - Iframe-Client      
-      description: 
+        - Iframe-Client
+      description:
       operationId: putiframeclientupdate
       parameters: []
       responses:
@@ -650,8 +655,8 @@ paths:
       security:
         - bearerAuth: []
       tags:
-        - Cron      
-      description: 
+        - Cron
+      description:
       operationId: getcronrunning
       parameters: []
       responses:
@@ -688,8 +693,8 @@ paths:
       security:
         - bearerAuth: []
       tags:
-        - Cron      
-      description: 
+        - Cron
+      description:
       operationId: postcroncreate
       parameters: []
       responses:
@@ -732,7 +737,7 @@ paths:
         - bearerAuth: []
       tags:
         - Cron
-      description: 
+      description:
       operationId: postcronswitch
       parameters: []
       responses:
@@ -774,7 +779,7 @@ paths:
         - bearerAuth: []
       tags:
         - Home
-      description: 
+      description:
       operationId: gethomeget
       parameters: []
       responses:

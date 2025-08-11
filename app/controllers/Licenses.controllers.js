@@ -70,8 +70,8 @@ exports.find = async (req, res) => {
     // }
     let clause = {
         where: {
-            name: {
-                [Op.like]: `%${req.query.name}%`,
+            uuid: {
+                [Op.like]: `%${req.query.uuid}%`,
             }
         },
         include: [

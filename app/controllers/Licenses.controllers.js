@@ -71,7 +71,7 @@ exports.find = async (req, res) => {
     let clause = {
         where: {
             uuid: {
-                [Op.like]: `%${req.query.uuid}%`,
+                [Op.eq]: `${req.query.uuid}`,
             }
         },
         include: [
@@ -81,7 +81,7 @@ exports.find = async (req, res) => {
             }
         ]
     }
-    await crud.read(res, Licenses, clause);
+    await crud.find(res, Licenses, clause);
 }
 
 /**

@@ -20,5 +20,6 @@ module.exports = (app) => {
     app.post('/licenses/create', [verifyToken], Licenses.create);
     app.post('/licenses/upload', [verifyToken, upload.single('file')], Licenses.uploadData);
     app.put('/licenses/update', [verifyToken], Licenses.update);
-    app.delete('/licenses/delete', [verifyToken], Licenses.delete)
+    app.delete('/licenses/delete', [verifyToken], Licenses.delete);
+    app.get('/licenses/export', [verifyToken], Licenses.downloadData);
 }

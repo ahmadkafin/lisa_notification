@@ -236,6 +236,28 @@ exports.uploadData = async (req, res) => {
     }
 }
 
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
+exports.downloadData = async (req, res) => {
+    try {
+        const licenses = await Licenses.findAll();
+        if (licenses.length === 0) {
+            return res.status(404).json(comRes.NOT_FOUND("Tidak ada data"));
+        }
+        return res.status(200).json({
+            status: 200,
+            data: licenses,
+        });
+    } catch (e) {
+        return res.status(500).json(comRes.SERVER_ERROR(e.message));
+    }
+}
+
 function excelDateToJSDate(serial) {
     const utc_days = Math.floor(serial - 25569);
     const utc_value = utc_days * 86400; // seconds

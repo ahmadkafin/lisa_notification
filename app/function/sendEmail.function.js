@@ -19,7 +19,7 @@ module.exports = async () => {
         // let dataParse = data.map((i) => `<li>${i.name} berakhir pada tanggal ${i.end_date} sekitar ${i.days_left} hari lagi</li>`)
         const dataParse = data.map((i) => emailList(i));
         const mailOpt = {
-            from: "kafinahmad@17gmail.com",
+            from: "lisanotifikasi@outlook.com",
             to: getAllEmailRecepient("to"),
             cc: getAllEmailRecepient("cc"),
             bcc: getAllEmailRecepient("bcc"),

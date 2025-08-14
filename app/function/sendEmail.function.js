@@ -26,7 +26,7 @@ module.exports = async () => {
             bcc: await getAllEmailRecepient("bcc"),
             subject: "(NO-REPLY) REMINDER EXPIRE APPLICATION",
             text: "(NO-REPLY) REMINDER EXPIRE APPLICATION",
-            html: htmlBody.body(dataParse),
+            html: htmlBody.body(dataParse, "ca1ece7a-ccc4-447e-bd35-c2e76c0de3de"),
         }
         mail.sendMail(mailOpt);
     } catch (e) {

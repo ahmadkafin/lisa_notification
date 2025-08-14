@@ -10,7 +10,7 @@ exports.body = (data, uuid) => {
         Demikian disampaikan atas perhatian dan kerjasamanya kami ucapkan terima kasih. 
         </p>
         <div style="text-align:center; margin:20px 0;">
-            <a href="https://lisa.com?uuid=${uuid}" 
+            <a href="https://digio.pgn.co.id/lisa?uuid=${uuid}" 
             style="
                 display:inline-block;
                 background-color:#007BFF;

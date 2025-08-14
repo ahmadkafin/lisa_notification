@@ -80,12 +80,14 @@ exports.createTokenIframe = async (req, res) => {
                     redirect: clientFound.redirect,
                     cookie_session: cookieData,
                 });
+            } else {
+                return res.status(204);
             }
         } else {
             return res.status(200).json(resCom.SUCCESS(token));
         }
 
-        
+
     } catch (e) {
         return res.status(500).json(resCom.SERVER_ERROR(e.message));
     }

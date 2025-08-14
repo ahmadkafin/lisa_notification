@@ -39,8 +39,8 @@ function emailList(data) {
     <li>
         <strong>Nama: ${data.name}</strong>:
         <ul style="margin:0; padding-left:20px; list-style-type: disc;">
-            <li>Volume: ${data.volume} ${data.unit}</li>
-            <li>Harga Satuan: Rp ${data.harga_satuan} (harga tanggal ${data.end_date})</li>
+            <li>Volume: ${data.volume} ${data.volume}</li>
+            <li>Harga Satuan: Rp ${data.harga_satuan} (harga tanggal ${data.start_date} - ${data.end_date})</li>
             <li>Total Harga: Rp ${data.harga_satuan * data.volume}</li>
             <li>Keterangan: ${data.description}</li>
             <li>Periode Mulai: ${data.start_date}</li>

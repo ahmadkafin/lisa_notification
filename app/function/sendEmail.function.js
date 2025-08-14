@@ -85,7 +85,12 @@ async function checkSoonExpire() {
                     return {
                         name: li.name,
                         end_date: li.end_date,
-                        days_left: daysLeft, // negatif
+                        volume: li.volume,
+                        harga_satuan: li.harga_satuan,
+                        unit: li.unit,
+                        description: li.description,
+                        start_date: li.start_date,
+                        days_left: daysLeft, // negatif                        
                         status: 'expired',
                         days_overdue: Math.abs(daysLeft),
                         message: `Lisensi ${li.name} sudah lewat ${Math.abs(daysLeft)} hari (expired).`,
@@ -97,6 +102,11 @@ async function checkSoonExpire() {
                     return {
                         name: li.name,
                         end_date: li.end_date,
+                        volume: li.volume,
+                        harga_satuan: li.harga_satuan,
+                        unit: li.unit,
+                        description: li.description,
+                        start_date: li.start_date,
                         days_left: daysLeft,
                         status: 'expires_today',
                         message: `Lisensi ${li.name} berakhir hari ini.`,
@@ -108,6 +118,11 @@ async function checkSoonExpire() {
                     return {
                         name: li.name,
                         end_date: li.end_date,
+                        volume: li.volume,
+                        harga_satuan: li.harga_satuan,
+                        unit: li.unit,
+                        description: li.description,
+                        start_date: li.start_date,
                         days_left: daysLeft,
                         status: 'due_soon',
                         message: `Lisensi ${li.name} akan berakhir dalam ${daysLeft} hari.`,

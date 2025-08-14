@@ -66,6 +66,7 @@ exports.createTokenIframe = async (req, res) => {
 
         // button di email mengarah ke digio
         if (clientFound.redirect != null) {
+            console.log("this block is executed");
             if (clientFound.redirect.includes("https://digio.pgn.co.id") && clientFound.site_name.includes("https://digio.pgn.co.id")) {
                 const username = process.env.USERNAME;
                 const password = process.env.PASSWORD;

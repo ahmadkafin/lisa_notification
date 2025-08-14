@@ -173,6 +173,88 @@ exports.cronSwitch = async (req, res) => {
     }
 }
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
+exports.update = async (req, res) => {
+    const { uuid, time_schedule, is_running } = req.body;
+
+    if (!uuid || !time_schedule || is_running === undefined) {
+        return res.status(400).json(resCom.BAD_REQUEST("Payload is not fullfiled"));
+    }
+
+    let clause = {
+        where: {
+            uuid: {
+                [Op.eq]: uuid
+            }
+        }
+    };
+
+    const found = await Cron.findOne(clause);
+    if (!found) {
+        return res.status(404).json(resCom.NOT_FOUND("NOT FOUND"));
+    }
+
+    const jobFunction = functionMap[found.name];
+
+    if (is_running === true && !jobFunction) {
+        return res.status(400).json(resCom.BAD_REQUEST(
+            `Function '${found.name}' tidak ditemukan di mapping. Cron tidak dijalankan, silakan cek nama function.`
+        ));
+    }
+
+    await Cron.update(
+        { 
+            time_schedule: time_schedule,
+            is_running: is_running 
+        },
+        clause
+    ).then((resp) => {
+        if (is_running === true) {
+            try {
+                let cronStart = cron.schedule(time_schedule, jobFunction, {
+                    scheduled: true,
+                });
+                if (jobRefs[uuid]) {
+                    jobRefs[uuid].stop();
+                }
+                jobRefs[uuid] = cronStart;
+                return res.status(200).json(resCom.SUCCESS({
+                    cronName: found.name,
+                    status: `✅ Cron '${found.name}' berhasil diupdate dan dijalankan ulang.`
+                }));
+            } catch (e) {
+                return res.status(500).json(resCom.SERVER_ERROR({
+                    cronName: found.name,
+                    status: `❌ Update Failed with error ${e.message}`
+                }));
+            }
+        } else {
+            if (jobRefs[uuid]) {
+                jobRefs[uuid].stop();
+                return res.status(200).json(resCom.SUCCESS({
+                    cronName: found.name,
+                    status: `⏹️ Cron '${found.name}' berhasil diupdate dan dihentikan.`
+                }));
+            } else {
+                return res.status(200).json(resCom.SUCCESS({
+                    cronName: found.name,
+                    status: `✅ Cron '${found.name}' berhasil diupdate.`
+                }));
+            }
+        }
+    }).catch((e) => {
+        return res.status(500).json(resCom.SERVER_ERROR({
+            cronName: found.name,
+            status: `❌ Update Failed with error ${e.message}`
+        }));
+    });
+}
+
 const functionMap = {
     sendEmail: fn.sendEmail,
 }

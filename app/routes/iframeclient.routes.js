@@ -12,9 +12,9 @@ module.exports = (app) => {
         next();
     });
 
-    app.get('/iframe-client/get', [verifyToken], IframeClient.get);
-    app.get('/iframe-client/find', [verifyToken], IframeClient.find);
-    app.post('/iframe-client/create', [verifyToken], IframeClient.create);
-    app.put('/iframe-client/update', [verifyToken], IframeClient.update);
-    app.delete('/iframe-client/delete', [verifyToken], IframeClient.delete)
+    app.get('/iframe-client/get', IframeClient.get);
+    app.get('/iframe-client/find', IframeClient.find);
+    app.post('/iframe-client/create', IframeClient.create);
+    app.put('/iframe-client/update', IframeClient.update);
+    app.delete('/iframe-client/delete', IframeClient.delete)
 }

@@ -22,7 +22,7 @@ require('./app/routes')(app);
 
 // migration to db
 // DO NOT USE {force: true}!!! otherwise your existing data will be deleted.
-// db.sequelize.sync();
+db.sequelize.sync();
 
 // app start
 app.listen(port, () => {

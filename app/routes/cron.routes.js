@@ -13,4 +13,5 @@ module.exports = (app) => {
     app.get('/cron/running', [verifyToken], Cron.get);
     app.post('/cron/create', [verifyToken], Cron.create);
     app.post('/cron/switch', [verifyToken], Cron.cronSwitch);
+    app.put('/cron/update', [verifyToken], Cron.update);
 }

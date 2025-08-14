@@ -12,7 +12,7 @@ const htmlBody = config.htmlBody;
 module.exports = async () => {
     try {
         let data = await checkSoonExpire();
-        if (Array.isArray(data) || data.length === 0) {
+        if (!Array.isArray(data) || data.length === 0) {
             console.log("✅ Tidak ada data lisensi yang mendekati expire (clean data)");
             return;
         }
@@ -68,24 +68,66 @@ async function getAllEmailRecepient(emailType) {
 
 async function checkSoonExpire() {
     try {
-        const today = moment();
-        const license = await Licenses.findAll();
-        const reminders = license.map(li => {
-            const endDate = moment(li.end_date);
-            const daysLeft = endDate.diff(today, 'days');
-            if ([120, 90, 30].includes(daysLeft)) {
-                return {
-                    name: li.name,
-                    end_date: li.end_date,
-                    days_left: daysLeft,
-                    message: `Lisensi ${li.name} akan berakhir dalam ${daysLeft} hari`,
+        const today = moment().startOf('day');
+        const licenses = await Licenses.findAll();
+
+        // nilai yang mau diingatkan (hari sebelum kadaluarsa)
+        const remindDays = new Set([1, 7, 30, 90, 120]);
+
+        const reminders = licenses
+            .map(li => {
+                const endDate = moment(li.end_date).startOf('day');
+                const daysLeft = endDate.diff(today, 'days');
+
+                // expired (lewat tanggal)
+                if (daysLeft < 0) {
+                    return {
+                        name: li.name,
+                        end_date: li.end_date,
+                        days_left: daysLeft, // negatif
+                        status: 'expired',
+                        days_overdue: Math.abs(daysLeft),
+                        message: `Lisensi ${li.name} sudah lewat ${Math.abs(daysLeft)} hari (expired).`,
+                    };
                 }
-            }
-            return null;
-        }).filter(Boolean);
+
+                // expires today (opsional)
+                if (daysLeft === 0) {
+                    return {
+                        name: li.name,
+                        end_date: li.end_date,
+                        days_left: daysLeft,
+                        status: 'expires_today',
+                        message: `Lisensi ${li.name} berakhir hari ini.`,
+                    };
+                }
+
+                // due soon: 1, 7, 30, 90, 120 hari lagi
+                if (remindDays.has(daysLeft)) {
+                    return {
+                        name: li.name,
+                        end_date: li.end_date,
+                        days_left: daysLeft,
+                        status: 'due_soon',
+                        message: `Lisensi ${li.name} akan berakhir dalam ${daysLeft} hari.`,
+                    };
+                }
+
+                return null;
+            })
+            .filter(Boolean);
+
+        // (opsional) urutkan: expired dulu, lalu paling dekat
+        reminders.sort((a, b) => {
+            if (a.status === 'expired' && b.status !== 'expired') return -1;
+            if (a.status !== 'expired' && b.status === 'expired') return 1;
+            return a.days_left - b.days_left;
+        });
+
         return reminders;
     } catch (e) {
         console.error(e.message);
         return null;
     }
 }
+

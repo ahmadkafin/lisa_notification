@@ -16,9 +16,10 @@ module.exports = async () => {
             console.log("✅ Tidak ada data lisensi yang mendekati expire (clean data)");
             return;
         }
-        let dataParse = data.map((i) => `<li>${i.name} berakhir pada tanggal ${i.end_date} sekitar ${i.days_left} hari lagi</li>`)
+        // let dataParse = data.map((i) => `<li>${i.name} berakhir pada tanggal ${i.end_date} sekitar ${i.days_left} hari lagi</li>`)
+        const dataParse = data.map((i) => emailList(i));
         const mailOpt = {
-            from: "fzakyn96@gmail.com",
+            from: "lisanotifikasi@outlook.com",
             to: getAllEmailRecepient("to"),
             cc: getAllEmailRecepient("cc"),
             bcc: getAllEmailRecepient("bcc"),
@@ -30,6 +31,21 @@ module.exports = async () => {
     } catch (e) {
         console.error("❌ Gagal mengirim email reminder:", err);
     }
+}
+
+function emailList(data) {
+    return `
+    <li>
+        <strong>Nama: ${data.name}</strong>:
+        <ul style="margin:0; padding-left:20px; list-style-type: disc;">
+            <li>Volume: ${data.volume} ${data.unit}</li>
+            <li>Harga Satuan: Rp ${data.harga_satuan} (harga tanggal ${data.end_date})</li>
+            <li>Total Harga: Rp ${data.harga_satuan * data.volume}</li>
+            <li>Keterangan: ${data.description}</li>
+            <li>Periode Mulai: ${data.start_date}</li>
+            <li>Periode Berakhir: ${data.end_date}</li>
+        </ul>
+    </li>`
 }
 
 

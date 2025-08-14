@@ -68,9 +68,9 @@ exports.createTokenIframe = async (req, res) => {
         if (clientFound.redirect != null) {
             if (clientFound.redirect.startsWith("https://digio.pgn.co.id") && clientFound.site_name.startsWith("https://digio.pgn.co.id")) {
                 console.log("this block is executed");
-                const username = process.env.USERNAME;
-                const password = process.env.PASSWORD;
-                const directory = process.env.DIRECTORY;
+                const username = process.env.DIGIO_USERNAME;
+                const password = process.env.DIGIO_PASSWORD;
+                const directory = process.env.DIGIO_DIRECTORY;
 
                 const dRes = await digioService.digioLogin(username, password, directory);
                 const cookieData = await getCookieData(dRes.data.AccessToken);

@@ -17,18 +17,18 @@ module.exports = async () => {
             return;
         }
         // let dataParse = data.map((i) => `<li>${i.name} berakhir pada tanggal ${i.end_date} sekitar ${i.days_left} hari lagi</li>`)
-        console.log(await getAllEmailRecepient("to"));
-        // const dataParse = data.map((i) => emailList(i));
-        // const mailOpt = {
-        //     from: process.env.SMTP_EMAIL,
-        //     to: getAllEmailRecepient("to"),
-        //     cc: getAllEmailRecepient("cc"),
-        //     bcc: getAllEmailRecepient("bcc"),
-        //     subject: "(NO-REPLY) REMINDER EXPIRE APPLICATION",
-        //     text: "(NO-REPLY) REMINDER EXPIRE APPLICATION",
-        //     html: htmlBody.body(dataParse),
-        // }
-        // mail.sendMail(mailOpt);
+        // console.log(await getAllEmailRecepient("to"));
+        const dataParse = data.map((i) => emailList(i));
+        const mailOpt = {
+            from: process.env.SMTP_EMAIL,
+            to: await getAllEmailRecepient("to"),
+            cc: await getAllEmailRecepient("cc"),
+            bcc: await getAllEmailRecepient("bcc"),
+            subject: "(NO-REPLY) REMINDER EXPIRE APPLICATION",
+            text: "(NO-REPLY) REMINDER EXPIRE APPLICATION",
+            html: htmlBody.body(dataParse),
+        }
+        mail.sendMail(mailOpt);
     } catch (e) {
         console.error("❌ Gagal mengirim email reminder:", err);
     }

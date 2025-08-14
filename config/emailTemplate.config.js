@@ -9,9 +9,20 @@ exports.body = (data, uuid) => {
         </ol>
         Demikian disampaikan atas perhatian dan kerjasamanya kami ucapkan terima kasih. 
         </p>
-        <a class='something-class' href='https://lisa.com?uuid=${uuid}'>
-            Klik di sini untuk melihat detil lisensi pada aplikasi Digio.
-        </a> 
+        <div style="text-align:center; margin:20px 0;">
+            <a href="https://lisa.com?uuid=${uuid}" 
+            style="
+                display:inline-block;
+                background-color:#007BFF;
+                color:#ffffff;
+                padding:10px 20px;
+                border-radius:5px;
+                text-decoration:none;
+                font-weight:bold;
+            ">
+            Klik di sini untuk melihat detil lisensi pada aplikasi Digio
+            </a>
+        </div>
         <p>
             Hormat kami,
             DIGIO System Administrator

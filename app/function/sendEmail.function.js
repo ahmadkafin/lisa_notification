@@ -17,7 +17,7 @@ module.exports = async () => {
             return;
         }
         // let dataParse = data.map((i) => `<li>${i.name} berakhir pada tanggal ${i.end_date} sekitar ${i.days_left} hari lagi</li>`)
-        console.log(getAllEmailRecepient("to"));
+        console.log(await getAllEmailRecepient("to"));
         // const dataParse = data.map((i) => emailList(i));
         // const mailOpt = {
         //     from: process.env.SMTP_EMAIL,
